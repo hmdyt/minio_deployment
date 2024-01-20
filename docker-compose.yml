@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  minio:
+    image: "quay.io/minio/minio:RELEASE.2024-01-18T22-51-28Z-cpuv1"
+    command: server --console-address ":9001"
+      # user: "1000:1000"  # ユーザーIDとグループIDをここに設定
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - /nfs/terastation/minio/data:/mnt/data  # ここを適切なホストのパスに置き換えてください
+      - ./config.env:/etc/config.env
+    environment:
+      MINIO_CONFIG_ENV_FILE: "/etc/config.env"
+
